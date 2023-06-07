@@ -1,9 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DiceRoller from './components/DiceRoller';
+import Compendium from './components/Compendium';
 
 
 export default function App() {
@@ -11,13 +10,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        {/* <Stack.Screen name="Compendium" component={Compendium} /> */}
-        {/* <Stack.Screen name="Générateur de fiches" component={CharacterSheetGenerator} /> */}
+        <Tab.Screen name="Compendium" component={Compendium} />
+        {/* <Tab.Screen name="Générateur de fiches" component={CharacterSheetGenerator} /> */}
         <Tab.Screen name="Lanceur de dés" component={DiceRoller} />
-        {/* <Stack.Screen name="Profil" component={Profile} /> */}
-        {/* <Stack.Screen name="Editer mon profil" component={EditProfile} /> */}
-        {/* <Stack.Screen name="Mes fiches" component={MyCharacterSheets} /> */}
-        {/* <Stack.Screen name="Musique d'ambiance" component={AmbientMusic} />  */}
+        {/* <Tab.Screen name="Profil" component={Profile} /> */}
+        {/* <Tab.Screen name="Editer mon profil" component={EditProfile} /> */}
+        {/* <Tab.Screen name="Mes fiches" component={MyCharacterSheets} /> */}
+        {/* <Tab.Screen name="Musique d'ambiance" component={AmbientMusic} />  */}
       </Tab.Navigator>
     </NavigationContainer>
   );
