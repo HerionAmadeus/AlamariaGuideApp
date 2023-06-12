@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 const DiceRoller = () => {
@@ -26,9 +26,10 @@ const DiceRoller = () => {
   };
 
   return (
-    <View>
-      <Text>Sélectionnez le type de dés :</Text>
+    <View style={styles.container}>
+      <Text style={styles.label}>Sélectionnez le type de dés :</Text>
       <Picker
+        style={styles.picker}
         selectedValue={diceType}
         onValueChange={(itemValue) => setDiceType(itemValue)}
       >
@@ -42,8 +43,9 @@ const DiceRoller = () => {
         <Picker.Item label="d100" value="d100" />
       </Picker>
 
-      <Text>Sélectionnez le nombre de dés :</Text>
+      <Text style={styles.label}>Sélectionnez le nombre de dés :</Text>
       <Picker
+        style={styles.picker}
         selectedValue={diceCount}
         onValueChange={(itemValue) => setDiceCount(itemValue)}
       >
@@ -59,20 +61,94 @@ const DiceRoller = () => {
         {/* Ajoutez autant d'éléments que nécessaire */}
       </Picker>
 
-      <Button title="Lancer les dés" onPress={rollDice} />
+      <Button style={styles.button} title="Lancer les dés" onPress={rollDice} />
+    
 
-      {results.length > 1 && (
-        <View>
-          <Text>Résultat de chaque dé :</Text>
-          {results.map((result, index) => (
-            <Text key={index}>Dé {index + 1} : {result}</Text>
-          ))}
+
+      {diceCount !== '1' && (
+        <View style={styles.resultsContainer}>
+          <Text style={styles.resultsLabel}>Résultat de chaque dé :</Text>
+          <View style={styles.resultsTable}>
+            {results.map((result, index) => (
+              <View key={index} style={styles.resultRow}>
+                <Text style={styles.resultDiceText}>Dé {index + 1} ({diceType}) : </Text>
+                <Text style={styles.resultText}>{result}</Text>
+              </View>
+            ))}
+          </View>
         </View>
       )}
+      <Text>{'\n'}</Text>
+<View style={styles.totalContainer}>
+  <Text style={styles.totalLabel}>Total :</Text>
+</View>
 
-      <Text>Total : {totalResult}</Text>
+<View style={styles.totalContainer}>
+  <Text style={styles.totalText}>{totalResult}</Text>
+</View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  picker: {
+    height: 40,
+    width: 200,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    marginBottom: 16,
+  },
+  button: {
+    marginTop: 16,
+  },
+  totalContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  totalLabel: {
+    fontSize: 18,
+  },
+  totalText: {
+    fontSize: 72,
+    fontWeight: 'bold',
+  },
+  resultsContainer: {
+    alignItems: 'center',
+  },
+  resultsLabel: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 8,
+    marginTop: 32,
+  },
+  resultsTable: {
+    marginTop: 10,
+  },
+  resultRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    marginBottom: 8,
+  },
+  resultDiceText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  resultText: {
+    fontSize: 14,
+  },
+});
 
 export default DiceRoller;
